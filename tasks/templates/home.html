@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="container py-5">
+    <section class="card card-body">
+        <h1 class="display-1 text-center">Django app by Gatote</h1>
+        <p>
+            CRUD made with Django by Gatote about pending tasks, completed tasks, etc.
+            This application allows you to efficiently manage your tasks,
+            providing functionalities for creating, reading, updating, and deleting tasks.
+            You can mark tasks as important, view a list of your completed and pending tasks,
+            and manage everything securely with user authentication.
+        </p>        
+        <div class="text-center">
+            <a href="{% url 'singin' %}" class="btn btn-primary">Sign in</a>
+            <a href="{% url 'singup' %}" class="btn btn-primary">Sign up</a>
+        </div>
+    </section>
+</main>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="container py-5">
+    <section class="card card-body">
+        <h1 class="h3 mb-3 font-weight-normal text-center">Create Task</h1>
+        <form action="/tasks/create/" method="POST" class="form-create-task">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="id_title">Title:</label>
+                <input type="text" id="id_title" name="title" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="id_description">Description:</label>
+                <textarea id="id_description" name="description" class="form-control" rows="4" required></textarea>
+            </div>
+
+            <div class="form-check">
+                <input type="checkbox" id="id_important" name="important" class="form-check-input">
+                <label class="form-check-label" for="id_important">Important</label>
+            </div>
+            
+            {% if error %}
+                <div class="alert alert-danger mt-3" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+            
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
+        </form>
+    </section>
+</main>
+{% endblock %}

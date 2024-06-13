@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="container py-5">
+    <section class="card card-body">
+        <h1 class="h3 mb-3 font-weight-normal text-center">Task - {{ task.title }}</h1>
+
+        <form method="POST" class="form-task-update">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_title">Title:</label>
+                <input type="text" id="id_title" name="title" class="form-control" value="{{ task.title }}" required>
+            </div>
+            <div class="form-group">
+                <label for="id_description">Description:</label>
+                <textarea id="id_description" name="description" class="form-control" rows="4" required>{{ task.description }}</textarea>
+            </div>
+            
+            <div class="form-check">
+                <input type="checkbox" id="id_important" name="important" class="form-check-input" {% if task.important %}checked{% endif %}>
+                <label class="form-check-label" for="id_important">Important</label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-block mt-3">Update</button>
+        </form>
+
+        {% if error %}
+            <div class="alert alert-danger mt-3" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <div class="text-center mt-4">
+            {% if task.datecompleted %}
+                <p class="text-muted">Completed on: {{ task.datecompleted|date:'M j Y:i' }}</p>
+            {% else %}
+                <form action="{% url 'complete_task' task.id %}" method="POST" class="form-task-action d-inline-block">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success">Complete</button>
+                </form>
+            {% endif %}
+        
+            <form action="{% url 'delete_task' task.id %}" method="POST" class="form-task-action d-inline-block ml-3">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </div>        
+    </section>
+</main>
+{% endblock %}
